@@ -9,7 +9,11 @@ let package = Package(
     .executable(
         name: "TestServer",
         targets: ["TestServer"]
-    )
+    ),
+        .executable(
+            name: "TestClient",
+            targets: ["TestClient"]
+        )
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -27,5 +31,12 @@ let package = Package(
             "SwiftGRPC",
         ]
     ),
+    .target(
+        name: "TestClient",
+        
+        dependencies: [
+            "SwiftGRPC",
+            ]
+        ),
     ]
 )
