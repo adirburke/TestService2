@@ -1,15 +1,24 @@
-
 import SwiftGRPC
 import Foundation
 
+func call(complete: ()->()) {
+    complete()
+}
 
 final class TaskProvider : RMSServiceLinkProvider {
+    
     func getTask(request: CheckTaskDto, session: RMSServiceLinkGetTaskSession) throws -> RMSTaskDto {
-        
-        print(session.initialMetadata.dictionaryRepresentation)
-       print( session.requestMetadata.dictionaryRepresentation["x-api-key"])
+
+        print(request.date)
         var response = RMSTaskDto()
         response.task = "ReturningValue"
+        let s = DispatchSemaphore(value: 1)
+        call() {
+            sleep(10)
+            s.signal()
+        }
+        s.wait()
+        print("Response")
         return response
         
     }
